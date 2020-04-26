@@ -75,11 +75,10 @@ u8 ST7920_IsCtrlByte(u8 data)
     return false;
 }
 
-u8 rcvData[64];
-u8 rcvIndex = 0;
-
 void ST7920_ParseRecv(u8 val)
 {
+  static u8 rcvData = 0;
+  static u8 rcvIndex = 0;
   if (ST7920_IsCtrlByte(val))
   {
     status = (ST7920_CTRL_STATUS)val;
@@ -87,18 +86,24 @@ void ST7920_ParseRecv(u8 val)
   }
   else
   {
-    rcvData[rcvIndex++] = val;
-    if(rcvIndex == 1) return;  //high 4 bits in first byte and
-    rcvIndex = 0;              //low 4 bits in second byte is valid
+    val &= 0xF0; // Every 8 bits instruction/data will be separated into 2 groups, lower 4 bits always 0 in every groups
+    if (rcvIndex == 0) {
+      rcvData = val; // Higher 4 bits in first byte
+      rcvIndex++;
+      return;
+    } else {
+      rcvData |= val >> 4; // Lower 4 bits in second byte
+      rcvIndex = 0;
+    }
 
     switch (status)
     {
       case ST7920_WCMD:
-        ST7920_ST7920_ParseWCmd(rcvData[0] | (rcvData[1]>>4));
+        ST7920_ST7920_ParseWCmd(rcvData);
         break;
 
       case ST7920_WDATA:
-        ST7920_DrawByte(rcvData[0] | (rcvData[1]>>4));
+        ST7920_DrawByte(rcvData);
         break;
 
       case ST7920_RCMD:
