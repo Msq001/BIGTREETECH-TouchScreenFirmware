@@ -12,7 +12,7 @@ void menuBedLevelingLayer2(void)
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
-      {ICON_BACKGROUND,              LABEL_BACKGROUND},
+      {ICON_BACKGROUND,              LABEL_BACKGROUND},    // ZLC {ICON_HEAT_FAN,                LABEL_UNIFIEDHEAT},
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
       {ICON_BACK,                    LABEL_BACK},
@@ -29,10 +29,10 @@ void menuBedLevelingLayer2(void)
 
     case BL_UBL:
       bedLevelingLayer2Items.title.index = LABEL_ABL_SETTINGS_UBL;
-      bedLevelingLayer2Items.items[1].icon = ICON_EEPROM_SAVE;
-      bedLevelingLayer2Items.items[1].label.index = LABEL_SAVE;
-      bedLevelingLayer2Items.items[2].icon = ICON_EEPROM_RESTORE;
-      bedLevelingLayer2Items.items[2].label.index = LABEL_LOAD;
+      bedLevelingLayer2Items.items[5].icon = ICON_EEPROM_SAVE;
+      bedLevelingLayer2Items.items[5].label.index = LABEL_SAVE;
+      bedLevelingLayer2Items.items[6].icon = ICON_EEPROM_RESTORE;
+      bedLevelingLayer2Items.items[6].label.index = LABEL_LOAD;
       break;
 
     case BL_MBL:
@@ -49,21 +49,29 @@ void menuBedLevelingLayer2(void)
 
     if (infoSettings.touchmi_sensor != 0)
     {
-      bedLevelingLayer2Items.items[4].icon = ICON_NOZZLE;
-      bedLevelingLayer2Items.items[4].label.index = LABEL_TOUCHMI;
+      bedLevelingLayer2Items.items[2].icon = ICON_NOZZLE;
+      bedLevelingLayer2Items.items[2].label.index = LABEL_TOUCHMI;
     }
     else
     {
-      bedLevelingLayer2Items.items[4].icon = ICON_BLTOUCH;
-      bedLevelingLayer2Items.items[4].label.index = LABEL_BLTOUCH;
+      bedLevelingLayer2Items.items[2].icon = ICON_BLTOUCH;
+      bedLevelingLayer2Items.items[2].label.index = LABEL_BLTOUCH;
     }
 
     if (infoSettings.z_steppers_alignment)
     {
-      bedLevelingLayer2Items.items[5].icon = ICON_Z_ALIGN;
-      bedLevelingLayer2Items.items[5].label.index = LABEL_Z_ALIGN;
+      bedLevelingLayer2Items.items[1].icon = ICON_Z_ALIGN;
+      bedLevelingLayer2Items.items[1].label.index = LABEL_Z_ALIGN;
     }
+    // ZLC P Probe
+    if (infoMachineSettings.zProbe == ENABLED)
+    {
+      bedLevelingLayer2Items.items[4].icon = ICON_PROBE_OFFSET;
+      bedLevelingLayer2Items.items[4].label.index = LABEL_P_OFFSET;
+    }
+  //
   }
+  
 
   menuDrawPage(&bedLevelingLayer2Items);
 
@@ -79,12 +87,12 @@ void menuBedLevelingLayer2(void)
           infoMenu.menu[++infoMenu.cur] = menuMBL;
         break;
 
-      case KEY_ICON_1:
+      case KEY_ICON_5:
         if (infoMachineSettings.leveling == BL_UBL)
           menuUBLSave();
         break;
 
-      case KEY_ICON_2:
+      case KEY_ICON_6:
         if (infoMachineSettings.leveling == BL_UBL)
           menuUBLLoad();
         break;
@@ -93,7 +101,7 @@ void menuBedLevelingLayer2(void)
         infoMenu.menu[++infoMenu.cur] = menuLevelCorner;
         break;
 
-      case KEY_ICON_4:
+      case KEY_ICON_2:
         if (infoMachineSettings.zProbe == ENABLED)
         {
           if (infoSettings.touchmi_sensor != 0)
@@ -102,14 +110,31 @@ void menuBedLevelingLayer2(void)
             infoMenu.menu[++infoMenu.cur] = menuBLTouch;
         }
         break;
+      
+      // ZLC P Probe settings
+      case KEY_ICON_4:
+        if (infoMachineSettings.zProbe == ENABLED)
+        {
+          storeCmd("M851\n");
+          zOffsetSetMenu(true);  // use Probe Offset menu
+          infoMenu.menu[++infoMenu.cur] = menuZOffset;
+        }
+        break;
+      //
 
-      case KEY_ICON_5:
+      case KEY_ICON_1:
         if (infoMachineSettings.zProbe == ENABLED && infoSettings.z_steppers_alignment)
         {
           storeCmd("G34\n");
           storeCmd("M18 S0 X Y Z\n");
         }
         break;
+
+      /**  ZLC Pre Heat button for Bed Leveling, disabled now due to preheat before leveling activated on marlin
+      case KEY_ICON_4:
+        infoMenu.menu[++infoMenu.cur] = menuUnifiedHeat;
+        break;
+      **/ 
 
       case KEY_ICON_7:
         infoMenu.cur--;

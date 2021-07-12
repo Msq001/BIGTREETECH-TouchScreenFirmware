@@ -18,7 +18,7 @@ void menuMain(void)
       #endif
       {ICON_STOP,                    LABEL_EMERGENCYSTOP},
       {ICON_GCODE,                   LABEL_TERMINAL},
-      {ICON_CUSTOM,                  LABEL_CUSTOM},
+      {ICON_CUSTOM,                  LABEL_CUSTOM},  // ZLC Custom button
       {ICON_SETTINGS,                LABEL_SETTINGS},
       {ICON_BACK,                    LABEL_BACK},
     }

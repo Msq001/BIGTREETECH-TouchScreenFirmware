@@ -101,7 +101,7 @@ void menuCustom(void)
         }
         break;
 
-      case KEY_ICON_6:
+    case KEY_ICON_6:
         if (gc_page_count > 1)
         {
           if (gc_cur_page < gc_page_count - 1)
@@ -112,7 +112,7 @@ void menuCustom(void)
           }
         }
         break;
-
+     
       case KEY_ICON_7:
         gc_cur_page = 0;
         infoMenu.cur--;
@@ -263,16 +263,17 @@ void menuMachineSettings(void)
     LABEL_MACHINE_SETTINGS,
     // icon                          label
     {
-      {ICON_PARAMETER,               LABEL_PARAMETER_SETTING},
-      {ICON_GCODE,                   LABEL_TERMINAL},
-      {ICON_CUSTOM,                  LABEL_CUSTOM},
-      {ICON_RGB_SETTINGS,            LABEL_RGB_SETTINGS},
-      {ICON_TUNING,                  LABEL_TUNING},
+      {ICON_PARAMETER,               LABEL_PARAMETER_SETTING}, // 0
+      {ICON_TUNING,                  LABEL_TUNING},            // 1
+      {ICON_GCODE,                   LABEL_TERMINAL},          // 2
+      
       #ifdef QUICK_EEPROM_BUTTON
-        {ICON_EEPROM_SAVE,             LABEL_EEPROM_SETTINGS},
+        {ICON_EEPROM_SAVE,             LABEL_EEPROM_SETTINGS}, // 3
       #else
         {ICON_BACKGROUND,              LABEL_BACKGROUND},
       #endif
+      {ICON_RGB_SETTINGS,            LABEL_RGB_SETTINGS},      // 4
+      {ICON_CUSTOM,                  LABEL_CUSTOM},       // ZLC Custom Button
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
       {ICON_BACK,                    LABEL_BACK},
     }
@@ -295,24 +296,24 @@ void menuMachineSettings(void)
         infoMenu.menu[++infoMenu.cur] = menuParameterSettings;
         break;
 
-      case KEY_ICON_1:
+      case KEY_ICON_2:
         infoMenu.menu[++infoMenu.cur] = menuTerminal;
         break;
 
-      case KEY_ICON_2:
+     case KEY_ICON_5:
         infoMenu.menu[++infoMenu.cur] = menuCustom;
         break;
-
-      case KEY_ICON_3:
+    
+      case KEY_ICON_4:
         infoMenu.menu[++infoMenu.cur] = menuRGBSettings;
         break;
 
-      case KEY_ICON_4:
+      case KEY_ICON_1:
         infoMenu.menu[++infoMenu.cur] = menuTuning;
         break;
 
       #ifdef QUICK_EEPROM_BUTTON
-        case KEY_ICON_5:
+        case KEY_ICON_3:
           infoMenu.menu[++infoMenu.cur] = menuEepromSettings;
           break;
       #endif

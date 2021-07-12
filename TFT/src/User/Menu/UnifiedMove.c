@@ -13,7 +13,7 @@ void menuUnifiedMove(void)
       {ICON_EXTRUDE,                 LABEL_EXTRUDE},
       {ICON_DISABLE_STEPPERS,        LABEL_DISABLE_STEPPERS},
       {ICON_BABYSTEP,                LABEL_BABYSTEP},
-      {ICON_MANUAL_LEVEL,            LABEL_LEVELING},
+      {ICON_BACKGROUND,              LABEL_BACKGROUND},  //  {ICON_MANUAL_LEVEL,            LABEL_LEVELING},
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
       {ICON_BACK,                    LABEL_BACK},
     }
@@ -60,7 +60,7 @@ void menuUnifiedMove(void)
 
       case KEY_ICON_6:
         if (infoMachineSettings.leveling != BL_DISABLED)
-          infoMenu.menu[++infoMenu.cur] = menuBedLeveling;
+          infoMenu.menu[++infoMenu.cur] = menuBedLevelingLayer2;  // ZLC Replaced menuBedLeveling with menuBedLevelingLayer2  
         break;
 
       case KEY_ICON_7:

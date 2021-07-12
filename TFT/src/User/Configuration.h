@@ -92,7 +92,7 @@
  *           6: MAGENTA,    7: YELLOW,      8: ORANGE,   9: PURPLE,   10: LIME,  11: BROWN,
  *          12: DARKBLUE,  13: DARKGREEN,  14: GRAY,    15: DARKGRAY
  */
-#define MARLIN_BKCOLOR 1  // Default: 1
+#define MARLIN_BKCOLOR 2  // Default: 1
 #define MARLIN_FNCOLOR 0  // Default: 0
 
 // Text displayed at the top of the TFT in Marlin Mode
@@ -107,7 +107,7 @@
  * Options: 0: Disabled (RECOMMENDED FOR TFT24)
  *          1: Enabled
  */
-#define MARLIN_MODE_FULLSCREEN 0  // Default: 0
+#define MARLIN_MODE_FULLSCREEN 1  // Default: 0
 
 /**
  * Keep Serial always On (ONLY SUPPORTED ON TFT24 V1.1, TFT35 V3.0, AND TFT28 V3.0)
@@ -138,10 +138,10 @@
                            // of the number of extruders)
 
 #define PREHEAT_LABELS   {"PLA", "PETG", "ABS", "WOOD", "TPU", "NYLON"}
-#define PREHEAT_HOTEND   {200,   240,    230,   170,    220,   250}
-#define PREHEAT_BED      {60,    70,     90,    50,     50,    90}
+#define PREHEAT_HOTEND   {210,   240,    250,   170,    220,   250}
+#define PREHEAT_BED      {60,    70,     100,    50,     50,    90}
 
-#define HEAT_MAX_TEMP    {275,       275,       275,       275,       275,       275,       150,    60}
+#define HEAT_MAX_TEMP    {310,       310,       310,       310,       310,       310,       120,    60}
 #define HEAT_SIGN_ID     {"T0:",     "T1:",     "T2:",     "T3:",     "T4:",     "T5:",     "B:",   "C:"}
 #define HEAT_DISPLAY_ID  {"T0",      "T1",      "T2",      "T3",      "T4",      "T5",      "Bed",  "Chamber"}
 #define HEAT_CMD         {"M104 T0", "M104 T1", "M104 T2", "M104 T3", "M104 T4", "M104 T5", "M140", "M141"};
@@ -151,7 +151,7 @@
 #define EXTRUDER_ID      {"E0",   "E1",      "E2",      "E3",      "E4",      "E5"}
 
 // Prevent extrusion if the temperature is below set temperature
-#define PREVENT_COLD_EXTRUSION_MINTEMP 180
+#define PREVENT_COLD_EXTRUSION_MINTEMP 200
 
 /**
  * Fan control & Fan type Options:
@@ -190,9 +190,9 @@
 #define X_MIN_POS   0
 #define Y_MIN_POS   0
 #define Z_MIN_POS   0
-#define X_MAX_POS 235
-#define Y_MAX_POS 235
-#define Z_MAX_POS 250
+#define X_MAX_POS 300
+#define Y_MAX_POS 300
+#define Z_MAX_POS 300
 
 /**
  * Raised Z height for probing
@@ -304,7 +304,7 @@
  *
  * NOTE: Enable it, in case Marlin firmware does not properly support M600 on the mainboard.
  */
-#define EMULATE_M600 true  // To enabled: true | To disabled: false (Default: true)
+#define EMULATE_M600 false  // To disabled: false (Default: true)  // ZLC
 
 /**
  * M601 ; pause print
@@ -536,20 +536,18 @@
  * CUSTOM_X_LABEL is the name of the custom button, CUSTOM_X_GCODE is the G-code to be sent by the custom button,
  * this should always end with a New-Line character '\n'.
  */
-#define CUSTOM_0_LABEL "Disable Steppers"
-#define CUSTOM_0_GCODE "M84\n"
-#define CUSTOM_1_LABEL "Init SD Card"
-#define CUSTOM_1_GCODE "M21\n"
-#define CUSTOM_2_LABEL "Release SD Card"
-#define CUSTOM_2_GCODE "M22\n"
-#define CUSTOM_3_LABEL "Enable Leveling State"
-#define CUSTOM_3_GCODE "M420 S1\n"
-#define CUSTOM_4_LABEL "Save to EEPROM"
-#define CUSTOM_4_GCODE "M500\n"
-#define CUSTOM_5_LABEL "Restore from EEPROM"
-#define CUSTOM_5_GCODE "M501\n"
-#define CUSTOM_6_LABEL "EEPROM Defaults"
-#define CUSTOM_6_GCODE "M502\n"
+#define CUSTOM_0_LABEL "Park Nozzle"
+#define CUSTOM_0_GCODE "G28\nG27 P0\n"
+//#define CUSTOM_2_LABEL "Release SD Card"
+//#define CUSTOM_2_GCODE "M22\n"
+//#define CUSTOM_3_LABEL "Enable Leveling State"
+//#define CUSTOM_3_GCODE "M420 S1\n"
+//#define CUSTOM_4_LABEL "Save to EEPROM"
+////#define CUSTOM_4_GCODE "M500\n"
+//#define CUSTOM_5_LABEL "Restore from EEPROM"
+//#define CUSTOM_5_GCODE "M501\n"
+//#define CUSTOM_6_LABEL "EEPROM Defaults"
+//#define CUSTOM_6_GCODE "M502\n"
 //#define CUSTOM_7_LABEL "Custom7"
 //#define CUSTOM_7_GCODE "M105\n"
 //#define CUSTOM_8_LABEL "Custom8"

@@ -69,6 +69,7 @@ void menuLoadUnload(void)
       {
         case KEY_ICON_0:  // Unload
         case KEY_ICON_3:  // Load
+         // mustStoreCmd("G28\nG27 P0\n", tool_index);  // ZLC
           if (!warmupTemperature(tool_index, loadMinTemp_OK))
           {
           }

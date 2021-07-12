@@ -24,8 +24,8 @@ void menuBedLeveling(void)
     // icon                          label
     {
       {ICON_LEVELING,                LABEL_ABL},
-      {ICON_MESH_EDITOR,             LABEL_MESH_EDITOR},
-      {ICON_MESH_VALID,              LABEL_MESH_VALID},
+      {ICON_MESH_EDITOR,             LABEL_MESH_EDITOR},  
+      {ICON_MESH_VALID,              LABEL_MESH_VALID},   
       {ICON_LEVELING_OFF,            LABEL_BL_DISABLE},
       {ICON_Z_FADE,                  LABEL_ABL_Z},
       {ICON_BACKGROUND,              LABEL_BACKGROUND},
